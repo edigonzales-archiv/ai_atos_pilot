@@ -30,7 +30,7 @@ Projekt klonen:
 git clone https://edigonzales@bitbucket.org/edigonzales/ai_atos_pilot.git
 ```
 
-In das `ai_atos_pilot/services/` Verzeichnis wechseln.
+In das `ai_atos_pilot/services/` Verzeichnis wechseln:
 
 
 ```
