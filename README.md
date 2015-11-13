@@ -66,3 +66,7 @@ Und zu guter Letzt:
 if __name__ == '__main__':
     app.run(debug=True)
 ```
+
+# Meta-DB
+
+Die AI hat noch keine Meta-DB. Für das Pilotprojekt wird eine kleine SQLite-Datenbank erstellt mit den notwendingen Informationen, um AtOS bedienen zu können.

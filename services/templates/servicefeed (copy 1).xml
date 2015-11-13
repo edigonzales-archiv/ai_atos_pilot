@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:georss="http://www.georss.org/georss" xmlns:inspire_dls="http://inspire.ec.europa.eu/schemas/inspire_dls/1.0" xml:lang="de">
+    <title>INSPIRE Download Service</title>
+    <subtitle>INSPIRE Atom Feed Services</subtitle>
+    <link rel="self" href="{{service_url}}/service.xml" type="application/atom+xml" hreflang="de" title="INSPIRE Download Service"/>
+    <!-- The INSPIRE download service itself is described in geocat.ch. Thanks Fuerstentum Liechtenstein.-->
+    <link rel="describedby" href="http://www.geocat.ch/geonetwork/srv/ger/csw?service=CSW&amp;version=2.0.2&amp;request=GetRecordById&amp;elementSetName=full&amp;outputFormat=application/xml&amp;outputSchema=IsoRecord&amp;id=9c0614f8-7268-48df-b702-24f7b2264b8c" hreflang="de" type="application/vnd.ogc.csw.GetRecordByIdResponse_xml" title="Download Service Feed Metadata"/>
+    <link rel="search" href="{{search_url}}/opensearchdescription.xml" type="application/opensearchdescription+xml" title="Opensearch Description"/>
+    <id>{{service_url}}/service.xml</id>
+    <rights>Daten dürfen frei genutzt werden (siehe Lizenzbestimmungen).</rights>
+    <updated>{{max_modified}}</updated>
+    <author>
+        <name>Stefan Ziegler / Amt für Geoinformation Kanton Solothurn</name>
+        <email>stefan.ziegler@bd.so.ch</email>
+    </author>
+    {%for item in items %}
+    <entry>
+        <title>{{item['title']}}</title>  
+        <summary type="html"><![CDATA[<div>{{item['abstract']}}</div>]]></summary>
+        <inspire_dls:spatial_dataset_identifier_code>{{item['identifier']}}</inspire_dls:spatial_dataset_identifier_code>
+        <inspire_dls:spatial_dataset_identifier_namespace>{{item['namespace']}}</inspire_dls:spatial_dataset_identifier_namespace>          
+        <category term="http://www.opengis.net/def/crs/EPSG/0/21781" label="LV03"/>
+        <author>
+            <name>Stefan Ziegler / Amt für Geoinformation Kanton Solothurn</name>
+            <email>stefan.ziegler@bd.so.ch</email>
+        </author>      
+        <id>{{service_url}}/{{item['identifier']}}.xml</id>   
+        <link href="{{item['metadata_link']}}" rel="describedby" type="application/vnd.ogc.csw.GetRecordByIdResponse_xml" title="Dataset Metadata"/>   
+        <link href="{{service_url}}/{{item['identifier']}}.xml" rel="alternate" type="application/atom+xml" title="Dataset Feed" />
+        <rights>Daten dürfen frei genutzt werden (siehe Lizenzbestimmungen).</rights>
+        <updated>{{item['modified']}}</updated>
+        <georss:box>{{item['bbox']}}</georss:box>                          
+    </entry>
+    {%endfor%}
+</feed>
+
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:georss="http://www.georss.org/georss" xmlns:gml="http://www.opengis.net/gml" xmlns:ech0056_dls="http://www.ech.ch/schemas/ech-0056/3.0" xml:lang="de">
+<title>eCH-0056 Downloaddienst</title>
+<subtitle>Vordefinierter Downloaddienst auf Basis von Atom Feed und OpenSearch</subtitle>
+<!-- Link zu Downloaddienst ISO 19139 metadata -->
+<link href="http://www.geocat.ch/geonetwork/srv/ger/xml_iso19139?id=123456" rel="describedby" type="application/xml"/>
+<!-- Self-referencing Link zum feed -->
+<link href="http://example.ch/download/atom.muster.xml" rel="self" type="application/atom+xml" hreflang="de" title="Dieses Dokument"/>
+<!-- Link zu OpenSearch-Beschreibungsdokument -->
+<link rel="search" href="http://example.ch/search/opensearchdescription.xml" type="application/opensearchdescription+xml" title="OpenSearch-Beschreibungsdokument"/>
+<!-- Link zum Feed: andere Sprache -->
+<link href="http://example.ch/atom.muster.en.xml" rel="alternate" type="application/atom+xml" hreflang="en" title="Pre-defined Download Service via Atom Feed and OpenSearch"/>
+<!-- Link zu einem anderen Format dieses Feeds (z.B. HTML) -->
+<link href="http://example.ch/download/index.html" rel="alternate" type="text/html" hreflang="de" title="HTML-Version dieses Dokuments"/>
+<!-- Link zu einem anderen Format dieses Feeds (z.B. HTML) - andere Sprache-->
+<link href="http://example.ch/download/index.en.html" rel="alternate" type="text/html" hreflang="en" title="HTML-Version dieses Dokuments auf English"/>
+<!-- Identifier -->
+<id>http://example.ch/download/atom.muster.xml</id>
+<!-- Nutzungsbedingungen und Zugangsbeschraenkungen -->
+<rights>Nutzungsbedingungen und Zugangsbeschraenkungen</rights>
+<!-- Datum Erstellung/Aktualisierung -->
+<updated>2015-09-11T18:45:00Z</updated>
+<!-- Kontaktinformationen -->
+<author>
+<name>Organisation</name>
+	<email>example@example.ch</email>
+</author>
+<!-- Eintrag "Dataset Feed" -->
+<entry>
+<!-- Titel des Datensatzes-->
+<title>Landesgrenzen</title>
+<!--Unique Resource Identifier dieses Datensatzes-->
+<ech0056_dls:spatial_dataset_identifier_code>ch.swisstopo.swissboundaries3d-land</ech0056_dls:spatial_dataset_identifier_code>
+<ech0056_dls:spatial_dataset_identifier_namespace>http://www.geo.admin.ch/</ech0056_dls:spatial_dataset_identifier_namespace>
+<!--Link zu Datensatz-Metadata-->
+<link href="http://www.geocat.ch/geonetwork/srv/ger/xml_iso19139?id=243086" rel="describedby" type="application/xml"/>
+<!-- Link zu Datensatz-Feed diese Datensatzes-->
+<link rel="alternate" href="http://example.ch/download/landesgrenzen.xml" type="application/atom+xml" hreflang="de" title="Datensatz-Feed"/>
+<!-- Identifier Datensatz-Feed  -->
+<id>http://example.ch/download/landesgrenzen.xml</id>
+<!-- Nutzungsbedingungen und Zugangsbeschraenkungen des Datensatzes -->
+<rights>Nutzungsbedingungen und Zugangsbeschraenkungen</rights>
+<!-- Datum Erstellung/Aktualisierung des Eintrages-->
+<updated>2015-09-11T18:45:00Z</updated>
+<!-- Uebersicht. Kann HTML enthalten -->
+<summary type="xhtml">
+	<xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">
+		<xhtml:p>Das ist <xhtml:b>XHTML</xhtml:b>.</xhtml:p>
+		<xhtml:p>Die Landesgrenzen der Schweiz</xhtml:p>
+		<xhtml:p>Download: <xhtml:a href="http://data.geo.admin.ch/interlis/LV03">INTERLIS/LV03</xhtml:a>, 
+		<xhtml:a href="http://data.geo.admin.ch/interlis/LV95">INTERLIS/LV03</xhtml:a></xhtml:p>	
+	</xhtml:div>
+</summary>
+<!-- BoundingBox als GeoRSS-Simple polygon - nur EPSG:4236 -->
+<georss:polygon>45.818 5.955 47.808 5.955 47.188 10.492 45.818 10.492 45.818 5.955</georss:polygon>
+<!-- BoundingBox als GeoRSS-GML polygon - EPSG:2056 -->
+<georss:where>
+	<gml:Polygon srsName="urn:ogc:def:crs:EPSG:2056">
+		<gml:exterior>
+			<gml:LinearRing>
+				<gml:posList>2485869 1076443 2485869 1299941 2837076 1299941 2837076 1076443 2485869 1076443</gml:posList>
+			</gml:LinearRing>
+		</gml:exterior>
+	</gml:Polygon>
+</georss:where>
+<!-- CRSs -->
+<category term="http://www.opengis.net/def/crs/EPSG/0/21781" label="LV03"/>
+<category term="http://www.opengis.net/def/crs/EPSG/0/2056" label="LV95"/>
+</entry>
+</feed>

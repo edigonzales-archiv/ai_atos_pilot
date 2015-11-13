@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/" xmlns:inspire_dls="http://inspire.ec.europa.eu/schemas/inspire_dls/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://a9.com/-/spec/opensearch/1.1/OpenSearch.xsd">
+    <ShortName>INSPIRE Download Service</ShortName>
+    <Description>INSPIRE Atom Feed Services -- OpenSearch Service</Description>
+    <Url type="application/opensearchdescription+xml" rel="self" template="{{search_url}}/opensearchdescription.xml"/>
+    <Url type="text/html" rel="results" template="{{search_url}}?q={searchTerms}"/>
+    {%for n in mime_types %}
+    <Url type="application/atom+xml" rel="describedby" template="{{search_url}}?request=DescribeSpatialDataSet&amp;spatial_dataset_identifier_code={inspire_dls:spatial_dataset_identifier_code?}&amp;spatial_dataset_identifier_namespace={inspire_dls:spatial_dataset_identifier_namespace?}&amp;type={{n}}&amp;crs={inspire_dl:crs?}&amp;language={language?}&amp;q={searchTerms?}"/>
+    {%endfor%}  
+    {%for n in mime_types %}
+    <Url type="{{n}}" rel="results" template="{{search_url}}?request=GetSpatialDataSet&amp;spatial_dataset_identifier_code={inspire_dls:spatial_dataset_identifier_code?}&amp;spatial_dataset_identifier_namespace={inspire_dls:spatial_dataset_identifier_namespace?}&amp;type={{n}}&amp;crs={inspire_dl:crs?}&amp;language={language?}&amp;q={searchTerms?}"/>
+    {%endfor%}        
+    <Contact>stefan.ziegler@bd.so.ch</Contact>
+    <LongName>INSPIRE Atom Feed Services</LongName>
+    {%for item in items %}
+    <Query role="example" inspire_dls:spatial_dataset_identifier_namespace="{{item['namespace']}}" inspire_dls:spatial_dataset_identifier_code="{{item['identifier']}}" inspire_dls:crs="http://www.opengis.net/def/crs/EPSG/0/21781" language="de" title="{{item['title']}}" count="1" />
+    {%endfor%}            
+    <Developer>Stefan Ziegler</Developer>
+    <Language>de</Language>
+    <Image height="16" width="16" type="image/x-icon">http://www.catais.org/geoig/favicon.ico</Image>
+    <Image height="64" width="64" type="image/png">http://www.catais.org/geoig/opensearch64.png</Image>    
+</OpenSearchDescription>
