@@ -42,6 +42,13 @@ pip install pytz
 
 ## Apache
 
+Es wird zusätzlich das `mod_wsgi` Modul benötigt:
+
+```
+sudo apt-get install libapache2-mod-wsgi 
+sudo a2enmod wsgi 
+```
+
 **ANPASSEN!!**
 
 ```

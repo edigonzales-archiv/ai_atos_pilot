@@ -42,3 +42,13 @@ Egal ob AtOS oder WFS (stored queries).
 ** Was steht bei <author>?**
 
 Was steht da?
+
+
+** MIME-Type für INTERLIS/XTF?**
+
+application/interlis+xml;version=2.3 oder text/x-interlis23 ?
+
+
+** <summary> xhtml vs html**
+
+Ich bring xhtml nicht zum laufen (wo wie wir das in eCH-0056 geschrieben haben). html im Firefox auch nur wenn man `<![CDATA[<div>...</div>]]>` wegglässt. Wie sieht es in IE aus?
