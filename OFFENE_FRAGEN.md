@@ -75,9 +75,9 @@ Ist bei DescribeSpatialDataset CRS und MediaType notwendig? Nein, oder?
 
 Gedankestütze: Abfrage von Klient in mehreren Stufen (wenn ich id von Datensatz kenne):
 
- 1) OpenSearch
- 2) Klient sucht nach describedby Url und ruft diese URL auf. Response ist Dataset feed. Dort drin stehen alle vorhandenen Kombination von CRS und Mimetypes.
- 3) Klient sucht nach results Url in OpenSearch und ruft mit den gewünschten Parameter diese URL auf, um den Datensatz herunterzuladen.
+ 1. OpenSearch
+ 2. Klient sucht nach describedby Url und ruft diese URL auf. Response ist Dataset feed. Dort drin stehen alle vorhandenen Kombination von CRS und Mimetypes.
+ 3. Klient sucht nach results Url in OpenSearch und ruft mit den gewünschten Parameter diese URL auf, um den Datensatz herunterzuladen.
 
 (Warum lädt er dann nicht mit einem GET den Datensatz runter wenn er beim Schritt 2 den Datasetfeed liest?)
 
