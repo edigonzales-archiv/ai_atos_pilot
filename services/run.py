@@ -18,10 +18,12 @@ import datetime
 
 TIMEZONE = timezone('Europe/Amsterdam')
 
-#SERVICE_URL = "http://www.geodienste.ch/services/atos"
+#SERVICE_URL = "http://www.geodienste.ch/services/atos/dls"
 #SEARCH_URL = "http://www.geodienste.ch/services/atos/search"
-SERVICE_URL = "http://127.0.0.1:5000/atos/dls"
-SEARCH_URL = "http://127.0.0.1:5000/atos/search"
+SERVICE_URL = "http://www.catais.org/services/atos/dls"
+SEARCH_URL = "http://www.catais.org/services/atos/search"
+#SERVICE_URL = "http://127.0.0.1:5000/atos/dls"
+#SEARCH_URL = "http://127.0.0.1:5000/atos/search"
 
 DATABASE = "/home/stefan/Projekte/ai_atos_pilot/metadb/metadb.sqlite"
 
@@ -315,7 +317,12 @@ def search():
 
     # What is the client requesting?
     # lowercase key and value of query string.
-    request_dict = { k.lower():v.lower() for k, v in request.args.items() }
+    # request_dict = { k.lower():v.lower() for k, v in request.args.items() }
+    # Above code works only for Pyhton 2.7+
+    request_dict = {}
+    for k, v in request.args.iteritems():
+        request_dict[k.lower()] = v.lower()
+    
     request_param = request_dict.get('request')
 
     # Service feed.
@@ -402,6 +409,9 @@ def search():
         abort(404)
 
 # Example requests
+# http://localhost:5000/atos/dls/service.xml
+# http://127.0.0.1:5000/atos/dls/788f4376-a625-4c0a-8704-458aa59bff79.xml
+# http://localhost:5000/atos/search/opensearchdescription.xml
 # http://localhost:5000/atos/search?request=DescribeSpatialDataset&spatial_dataset_identifier_code=788f4376-a625-4c0a-8704-458aa59bff79&spatial_dataset_identifier_namespace=http://www.geodienste.ch
 # http://localhost:5000/atos/search?request=GetSpatialdataSet&spatial_dataset_identifier_code=788f4376-a625-4c0a-8704-458aa59bff79&spatial_dataset_identifier_namespace=http://www.geodienste.ch&mediatype=application/gml%2bxml;version=3.2&crs=http://www.opengis.net/def/crs/EPSG/0/21781
 
