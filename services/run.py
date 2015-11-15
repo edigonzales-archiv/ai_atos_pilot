@@ -2,6 +2,7 @@
 from flask import Flask
 from flask import g
 from flask import Response
+from flask import request
 from flask import render_template
 from flask import make_response
 from flask import abort
@@ -49,6 +50,7 @@ def service_feed_xml():
 
     query = "SELECT * FROM service_feed LIMIT 1;"
 
+    sf_pkuid = None
     for service_feed in query_db(query):
         sf_pkuid = service_feed['pkuid']
         title = service_feed['title']
@@ -153,8 +155,8 @@ def dataset_feed_xml(dataset_id):
              WHERE sfe.identifier_code = ? \
              AND sfe.pkuid = df.sfe_id;"
     args = (dataset_id,)
-    print args
 
+    df_pkuid = None
     for dataset_feed in query_db(query, args):
         df_pkuid = dataset_feed['pkuid']
         title = dataset_feed['title']
@@ -259,7 +261,6 @@ def opensearchdescription_xml():
 
     mime_type_items = []
     for mime_type in query_db(query):
-        print mime_type['format_mime']
         mime_type_items.append(mime_type['format_mime'])
 
     # 2) We write every available dataset in the Query-stuff. Corresponding
@@ -295,9 +296,114 @@ def opensearchdescription_xml():
     response.headers['Content-Type'] = 'text/xml; charset=utf-8'
     return response
 
+@app.route('/atos/search', methods=['GET'])
+def search():
+    """ Handles the 'service part' of download service.
 
+    Requests:
+    DescribeSpatialDataSet
+    GetSpatialDataSet
+    """
+    app.logger.debug('Entering search() method.')
 
+    params_len = len(request.args)
 
+    # Abort if there are no parameters at all.
+    if params_len == 0:
+        app.logger.error('No query string found.')
+        abort(404)
+
+    # What is the client requesting?
+    # lowercase key and value of query string.
+    request_dict = { k.lower():v.lower() for k, v in request.args.items() }
+    request_param = request_dict.get('request')
+
+    # Service feed.
+    if request_param == "getdownloadservicemetadata":
+        app.logger.debug('getdownloadservicemetadata')
+        return service_feed_xml()
+
+    # Dataset description -> redirect to dataset feed.
+    # We take a shurtcut: Just redirect to dataset_feed_xml(identifier_code).
+    # This is not super smart but we still assume that 'identifier_code' is
+    # unique in our endpoint (service feed).
+    # We do not check if 'identifier_code' is available. We do this in the
+    # database_feed_xml() method.
+    # We should do this here since we also request the identifier_namespace...
+    # No identifier_namespace has no impact and can be anything.
+    elif request_param == "describespatialdataset":
+        app.logger.debug('describespatialdataset')
+        identifier_code = request.args.get('spatial_dataset_identifier_code', '')
+        identifier_namespace = request.args.get('spatial_dataset_identifier_namespace', '')
+        # language and q are ignored
+
+        if not identifier_code:
+            app.logger.error('No identifier_code found in query string.')
+            abort(404)
+        if not identifier_namespace:
+            app.logger.error('No identifier_namespace found in query string.')
+            abort(404)
+
+        return dataset_feed_xml(identifier_code)
+
+    # Dataset download.
+    elif request_param == "getspatialdataset":
+        app.logger.debug('getspatialdataset')
+        identifier_code = request.args.get('spatial_dataset_identifier_code', '')
+        identifier_namespace = request.args.get('spatial_dataset_identifier_namespace', '')
+        mediatype = request.args.get('mediatype', '')
+        crs = request.args.get('crs', '')
+        # language and q are ignored
+
+        if not identifier_code:
+            app.logger.error('No identifier_code found in query string.')
+            abort(404)
+        if not identifier_namespace:
+            app.logger.error('No identifier_namespace found in query string.')
+            abort(404)
+        if not mediatype:
+            app.logger.error('No mediatype found in query string.')
+            abort(404)
+        if not crs:
+            app.logger.error('No crs found in query string.')
+            abort(404)
+
+        # Get the srs_code.
+        # srs_auth is ignored.
+        srs_code = crs.split("/")[-1]
+
+        # Query the database.
+        # There is no error handling at the moment.
+        # What happens if we found more than one dataset? haha limit 1
+        query = "SELECT dfe.alternate_link \
+                 FROM service_feed_entry as sfe, dataset_feed as df, \
+                      dataset_feed_entry as dfe \
+                 WHERE sfe.pkuid = df.sfe_id \
+                 AND df.pkuid = dfe.df_id \
+                 AND sfe.identifier_code = ? \
+                 AND sfe.identifier_namespace = ? \
+                 AND dfe.format_mime = ? \
+                 AND srs_code = ? \
+                 LIMIT 1;"
+        args = (identifier_code, identifier_namespace, mediatype, srs_code)
+
+        dataset_url = None
+        for datasets in query_db(query, args):
+            dataset_url = datasets['alternate_link']
+
+        if not dataset_url:
+            app.logger.error('Dataset not found in database: %s', identifier_code)
+            abort(404)
+
+        return redirect(dataset_url)
+
+    else:
+        app.logger.error('missing query string')
+        abort(404)
+
+# Example requests
+# http://localhost:5000/atos/search?request=DescribeSpatialDataset&spatial_dataset_identifier_code=788f4376-a625-4c0a-8704-458aa59bff79&spatial_dataset_identifier_namespace=http://www.geodienste.ch
+# http://localhost:5000/atos/search?request=GetSpatialdataSet&spatial_dataset_identifier_code=788f4376-a625-4c0a-8704-458aa59bff79&spatial_dataset_identifier_namespace=http://www.geodienste.ch&mediatype=application/gml%2bxml;version=3.2&crs=http://www.opengis.net/def/crs/EPSG/0/21781
 
 # Database stuff:
 # http://flask.pocoo.org/docs/0.10/patterns/sqlite3/

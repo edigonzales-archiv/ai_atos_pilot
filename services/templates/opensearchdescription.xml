@@ -14,6 +14,6 @@
     <Query role="example" ech0056_dls:spatial_dataset_identifier_namespace="{{item['identifier_namespace']}}" ech0056_dls:spatial_dataset_identifier_code="{{item['identifier_code']}}" ech0056_dls:crs="http://www.opengis.net/def/crs/{{item['srs_auth']}}/0/{{item['srs_code']}}" ech0056_dls:mediatype="{{item['format_mime']}}" language="de" title="{{item['title']}}" count="1" />
     {%endfor%}            
     <Language>de</Language>
-    <Image height="16" width="16" type="image/x-icon">http://www.catais.org/geoig/favicon.ico</Image>
-    <Image height="64" width="64" type="image/png">http://www.catais.org/geoig/opensearch64.png</Image>    
+    <Image height="16" width="16" type="image/x-icon">http://www.catais.org/tmp/favicon.ico</Image>
+    <Image height="64" width="64" type="image/png">http://www.catais.org/tmp/opensearch64.png</Image>    
 </OpenSearchDescription>
