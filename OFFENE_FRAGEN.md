@@ -60,3 +60,30 @@ Bei der Implementierung gut überlegen, welcher Inhalt von welchen Tags gleich s
 
 ** Meta-DB für AtOS**
 Ich glaube am liebsten wäre mir die Abbildung von des Atom Feeds XSD in der DB und dann werden diese Tabelle aus einer Meta-DB abgefüllt. Wäre wohl am profimässigsten. Anschliessend sauber als XML exportieren (JAXB o.ä.).
+
+
+** OpenSearch **
+
+"The example given in Annex A uses content negotiation to identify which operation to perform. This
+means that even though the operation endpoint is only one, i.e. http://xyz.org/search.php, the client
+has to set the HTTP-Accept-Header to the correct value in order to receive the expected result."
+
+Dieser Accept-Header approach ist also absichtlich und bewusst gewählt worden. Was machen wir in eCH-0056? Ich finde es immer noch bisschen "abgehoben".
+
+Ist bei DescribeSpatialDataset CRS und MediaType notwendig? Nein, oder?
+
+Gedankestütze: Abfrage von Klient in mehreren Stufen (wenn ich id von Datensatz kenne):
+
+1) OpenSearch
+2) Klient such nach describedby Url und ruft diese URL auf. Response ist Dataset feed. Dort drin stehen alle vorhandenen Kombination von CRS und Mimetypes.
+3) Klient sucht nach results Url in OpenSearch und ruft mit den gewünschten Parameter diese URL auf, um den Datensatz herunterzuladen.
+
+(Warum lädt er dann nicht mit einem GET den Datensatz runter wenn er beim Schritt 2 den Datasetfeed liest?)
+
+
+** OpenSearch Language **
+Was sagt <Language>de</Language> aus? Ah: Available languages of download service.
+
+
+** OpenSearch Query **
+Nur ein example oder alle Varianten? Dann müsste aber nicht nur CRS, sondern auch z.B. mime type dazugehören.

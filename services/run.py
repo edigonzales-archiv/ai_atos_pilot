@@ -186,11 +186,11 @@ def dataset_feed_xml(dataset_id):
     # 3) Now get the information for dataset feed entries.
     app.logger.debug('Get dataset feed entries information from database.')
 
-    query = "SELECT  df.title || ' ' ||  dfe.srs_auth || ':' || dfe.srs_code || \
-                     ' (' || dfe.format_txt || ')' as title  , dfe.alternate_link, \
-                     dfe.summary, dfe.format_mime, dfe.format_txt, dfe.srs_auth, \
-                     dfe.srs_code, dfe.srs_txt, dfe.updated, sfe.x_min,  \
-                     sfe.y_min, sfe.x_max, sfe.y_max \
+    query = "SELECT df.title || ' ' ||  dfe.srs_auth || ':' || dfe.srs_code || \
+                    ' (' || dfe.format_txt || ')' as title  , dfe.alternate_link, \
+                    dfe.summary, dfe.format_mime, dfe.format_txt, dfe.srs_auth, \
+                    dfe.srs_code, dfe.srs_txt, dfe.updated, sfe.x_min,  \
+                    sfe.y_min, sfe.x_max, sfe.y_max \
              FROM service_feed_entry as sfe, dataset_feed as df, \
                   dataset_feed_entry as dfe \
              WHERE sfe.identifier_code = ? \
@@ -226,15 +226,75 @@ def dataset_feed_xml(dataset_id):
             max_updated_iso = TIMEZONE.localize(updated).isoformat('T')
 
     # 4) Assign remaining variables.
-    service_url = SERVICE_URL
+    service_link = SERVICE_URL
 
     response = make_response(render_template('datasetfeed.xml', title = title,
-                    subtitle = subtitle, service_url = service_url, \
+                    subtitle = subtitle, service_link = service_link, \
                     identifier_code = dataset_id, rights = rights, \
                     mdl_items = mdl_items, max_updated = max_updated_iso, \
                     items = dfe_items))
     response.headers['Content-Type'] = 'text/xml; charset=utf-8'
     return response
+
+
+@app.route('/atos/search/opensearchdescription.xml', methods=['GET'])
+def opensearchdescription_xml():
+    """ Creates the opensearch description response xml.
+    Language is hardcoded to "de".
+    Contact/LongName is hardcoded.
+    ShortName/Description is hardcoded (= title/subtitle from service feed)
+    """
+    app.logger.debug('Entering opensearchdescription_xml() method.')
+
+    # 1) Collect all mime types for this download service.
+    # Keep in mind that this query works only for this implementation.
+    # -> only one service feed in the database possible.
+    app.logger.debug('Get mime types for this download service from database.')
+
+    query = "SELECT DISTINCT dfe.format_mime \
+             FROM service_feed_entry as sfe, dataset_feed as df, \
+                  dataset_feed_entry as dfe \
+             WHERE sfe.pkuid = df.sfe_id \
+             AND df.pkuid = dfe.df_id;"
+
+    mime_type_items = []
+    for mime_type in query_db(query):
+        print mime_type['format_mime']
+        mime_type_items.append(mime_type['format_mime'])
+
+    # 2) We write every available dataset in the Query-stuff. Corresponding
+    # to Inspire-TC there is only one per identifier_code/identifier_namespace.
+    # But e.g. Weichand and Pasquale also provide all crs dataset combination.
+    app.logger.debug('Get all datasets for opensearch query.')
+
+    query = "SELECT sfe.identifier_code, sfe.identifier_namespace, df.title, \
+                    dfe.format_mime, dfe.format_txt, dfe.srs_auth, \
+                    dfe.srs_code, dfe.srs_txt \
+             FROM service_feed_entry as sfe, dataset_feed as df, \
+                  dataset_feed_entry as dfe \
+             WHERE sfe.pkuid = df.sfe_id \
+             AND df.pkuid = dfe.df_id;"
+
+    ex_items = []
+    for examples in query_db(query):
+        ex_item = {}
+        ex_item['identifier_code'] = examples['identifier_code']
+        ex_item['identifier_namespace'] = examples['identifier_namespace']
+        ex_item['title'] = examples['title']
+        ex_item['format_mime'] = examples['format_mime']
+        ex_item['srs_auth'] = examples['srs_auth']
+        ex_item['srs_code'] = examples['srs_code']
+        ex_items.append(ex_item)
+
+    # 3) Assign remaining variables.
+    search_link = SEARCH_URL
+
+    response = make_response(render_template('opensearchdescription.xml', \
+                    search_link = search_link, \
+                    ex_items = ex_items, mime_type_items = mime_type_items))
+    response.headers['Content-Type'] = 'text/xml; charset=utf-8'
+    return response
+
 
 
 

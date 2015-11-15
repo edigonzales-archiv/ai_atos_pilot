@@ -2,12 +2,12 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:georss="http://www.georss.org/georss" xmlns:gml="http://www.opengis.net/gml" xml:lang="de">
     <title>{{title}}</title>
     <subtitle>{{subtitle}}</subtitle>
-    <link rel="self" href="{{service_url}}/{{identifier_code}}.xml" type="application/atom+xml" hreflang="de" title="Selbstreferenz"/>
-    <link rel="up" href="{{service_url}}/service.xml" type="application/atom+xml" hreflang="de" title="Download Service Feed"/>
+    <link rel="self" href="{{service_link}}/{{identifier_code}}.xml" type="application/atom+xml" hreflang="de" title="Selbstreferenz"/>
+    <link rel="up" href="{{service_link}}/service.xml" type="application/atom+xml" hreflang="de" title="Download Service Feed"/>
     {%for mdl_item in mdl_items %}
 	<link rel="describedby" href="{{mdl_item['describedby_link']}}" type="text"/> 
     {%endfor%}    
-    <id>{{service_url}}/{{identifier}}.xml</id>
+    <id>{{service_link}}/{{identifier}}.xml</id>
     <rights>{{rights}}</rights>
     <updated>{{max_updated}}</updated>
     <author>
