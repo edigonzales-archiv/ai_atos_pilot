@@ -26,7 +26,10 @@ VALUES (1, 1, "http://models.geo.admin.ch/BAFU/Hazard_Mapping_V1_1.ili");
 INSERT INTO dataset_feed_entry (pkuid, df_id, title, alternate_link, summary, format_mime, format_txt, srs_auth, srs_code, srs_txt, updated)
 VALUES (1, 1, "", "http://catais.org/geodaten/ch/gl/efs/supplysecurity/xtf/lv03/supplysecurity.xtf", "<div>
   <p>
-    Die aggregierte Gefahrenkartierung der Schweiz im minimalen <a href='http://models.geo.admin.ch/BAFU/Hazard_Mapping_V1_1.ili'>Geodatenmodell</a> / {{item['srs_txt']}} / {{item['format_txt']}}.
+    Die aggregierte Gefahrenkartierung der Schweiz im minimalen <a href='http://models.geo.admin.ch/BAFU/Hazard_Mapping_V1_1.ili'>Geodatenmodell</a> / LV03 / GML.
+  </p>
+  <p>
+    <b>Dieser ist der einzig funktionierende (wird sein...) Link. Zeigt noch auf etwas Falsches.</b>
   </p>
   <p>
     Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam.
@@ -36,7 +39,7 @@ VALUES (1, 1, "", "http://catais.org/geodaten/ch/gl/efs/supplysecurity/xtf/lv03/
 INSERT INTO dataset_feed_entry (pkuid, df_id, title, alternate_link, summary, format_mime, format_txt, srs_auth, srs_code, srs_txt, updated)
 VALUES (2, 1, "", "http://catais.org/geodaten/ch/gl/efs/supplysecurity/xtf/lv03/supplysecurity.xtf", "<div>
   <p>
-    Die aggregierte Gefahrenkartierung der Schweiz im minimalen <a href='http://models.geo.admin.ch/BAFU/Hazard_Mapping_V1_1.ili'>Geodatenmodell</a> / {{item['srs_txt']}} / {{item['format_txt']}}.
+    Die aggregierte Gefahrenkartierung der Schweiz im minimalen <a href='http://models.geo.admin.ch/BAFU/Hazard_Mapping_V1_1.ili'>Geodatenmodell</a> / LV95 / GML.
   </p>
   <p>
     LV95-Dummy: Ich brauche weitere Dataset Feed Einträge, um die Erstellung der Feeds testen zu können. Dieser hier hat auch ein anderes Datum.
@@ -46,7 +49,7 @@ VALUES (2, 1, "", "http://catais.org/geodaten/ch/gl/efs/supplysecurity/xtf/lv03/
 INSERT INTO dataset_feed_entry (pkuid, df_id, title, alternate_link, summary, format_mime, format_txt, srs_auth, srs_code, srs_txt, updated)
 VALUES (3, 1, "", "http://catais.org/geodaten/ch/gl/efs/supplysecurity/xtf/lv03/supplysecurity.xtf", "<div>
   <p>
-    Die aggregierte Gefahrenkartierung der Schweiz im minimalen <a href='http://models.geo.admin.ch/BAFU/Hazard_Mapping_V1_1.ili'>Geodatenmodell</a> / {{item['srs_txt']}} / {{item['format_txt']}}.
+    Die aggregierte Gefahrenkartierung der Schweiz im minimalen <a href='http://models.geo.admin.ch/BAFU/Hazard_Mapping_V1_1.ili'>Geodatenmodell</a> / LV03 / XTF.
   </p>
   <p>
     XTF-Dummy: Ich brauche weitere Dataset Feed Einträge, um die Erstellung der Feeds testen zu können.

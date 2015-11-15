@@ -52,3 +52,11 @@ application/interlis+xml;version=2.3 oder text/x-interlis23 ?
 ** <summary> xhtml vs html**
 
 Ich bring xhtml nicht zum laufen (wo wie wir das in eCH-0056 geschrieben haben). html im Firefox auch nur wenn man `<![CDATA[<div>...</div>]]>` wegglässt. Wie sieht es in IE aus?
+
+
+** Redundanz**
+
+Bei der Implementierung gut überlegen, welcher Inhalt von welchen Tags gleich sein soll (z.b. <title> etc.). Soll/muss es so sein oder soll die Implementierung beides zulassen (Auswirkung auf DB-Struktur).
+
+** Meta-DB für AtOS**
+Ich glaube am liebsten wäre mir die Abbildung von des Atom Feeds XSD in der DB und dann werden diese Tabelle aus einer Meta-DB abgefüllt. Wäre wohl am profimässigsten. Anschliessend sauber als XML exportieren (JAXB o.ä.).

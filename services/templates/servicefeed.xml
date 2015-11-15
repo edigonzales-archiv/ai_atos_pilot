@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:georss="http://www.georss.org/georss" xmlns:gml="http://www.opengis.net/gml" xmlns:ech0056_dls="http://www.ech.ch/schemas/ech-0056/3.0" xml:lang="de">
     <title>{{title}}</title>
     <subtitle>{{subtitle}}</subtitle>
-    <link rel="self" href="{{self_link}}/service.xml" type="application/atom+xml" hreflang="de" title="{{title}}"/>
+    <link rel="self" href="{{self_link}}/service.xml" type="application/atom+xml" hreflang="de" title="Selbstreferenz"/>
     <link rel="describedby" href="{{describedby_link}}" hreflang="de" type="application/xml" title="Download Service Feed Metadata"/>
     <link rel="search" href="{{search_link}}/opensearchdescription.xml" type="application/opensearchdescription+xml" title="OpenSearch Description"/>
     <id>{{self_link}}/service.xml</id>
