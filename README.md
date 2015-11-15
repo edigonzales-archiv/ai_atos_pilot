@@ -52,7 +52,7 @@ sudo a2enmod wsgi
 **ANPASSEN!!**
 
 ```
-WSGIScriptAlias /geoig/services /home/stefan/Projekte/ai_atos_pilot/services/wsgi/flask.wsgi
+WSGIScriptAlias /services /home/stefan/Projekte/ai_atos_pilot/services/wsgi/flask.wsgi
 WSGIScriptReloading On
 
 <Directory /home/stefan/Projekte/ai_atos_pilot/services/wsgi>
