@@ -409,6 +409,13 @@ def search():
         abort(404)
 
 # Example requests
+# http://www.catais.org/services/atos/dls/service.xml
+# http://www.catais.org/services/atos/dls/788f4376-a625-4c0a-8704-458aa59bff79.xml
+# http://www.catais.org/services/atos/search/opensearchdescription.xml
+# http://www.catais.org/services/atos/search?request=DescribeSpatialDataset&spatial_dataset_identifier_code=788f4376-a625-4c0a-8704-458aa59bff79&spatial_dataset_identifier_namespace=http://www.geodienste.ch
+# http://www.catais.org/services/atos/search?request=GetSpatialDataset&spatial_dataset_identifier_code=788f4376-a625-4c0a-8704-458aa59bff79&spatial_dataset_identifier_namespace=http://www.geodienste.ch&mediatype=application/gml%2bxml;version=3.2&crs=http://www.opengis.net/def/crs/EPSG/0/21781
+# http://www.catais.org/services/atos/search?request=GetDownloadServiceMetadata
+
 # http://localhost:5000/atos/dls/service.xml
 # http://127.0.0.1:5000/atos/dls/788f4376-a625-4c0a-8704-458aa59bff79.xml
 # http://localhost:5000/atos/search/opensearchdescription.xml
