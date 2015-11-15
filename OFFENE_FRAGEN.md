@@ -59,6 +59,7 @@ Ich bring xhtml nicht zum laufen (wo wie wir das in eCH-0056 geschrieben haben).
 Bei der Implementierung gut überlegen, welcher Inhalt von welchen Tags gleich sein soll (z.b. <title> etc.). Soll/muss es so sein oder soll die Implementierung beides zulassen (Auswirkung auf DB-Struktur).
 
 ** Meta-DB für AtOS**
+
 Ich glaube am liebsten wäre mir die Abbildung von des Atom Feeds XSD in der DB und dann werden diese Tabelle aus einer Meta-DB abgefüllt. Wäre wohl am profimässigsten. Anschliessend sauber als XML exportieren (JAXB o.ä.).
 
 
@@ -82,8 +83,10 @@ Gedankestütze: Abfrage von Klient in mehreren Stufen (wenn ich id von Datensatz
 
 
 ** OpenSearch Language **
+
 Was sagt <Language>de</Language> aus? Ah: Available languages of download service.
 
 
 ** OpenSearch Query **
+
 Nur ein example oder alle Varianten? Dann müsste aber nicht nur CRS, sondern auch z.B. mime type dazugehören.
