@@ -76,4 +76,4 @@ if __name__ == '__main__':
 
 # Meta-DB
 
-Die AI hat noch keine Meta-DB. Für das Pilotprojekt wird eine kleine SQLite-Datenbank erstellt mit den notwendingen Informationen, um AtOS bedienen zu können.
+Die AI hat noch keine Meta-DB. Für das Pilotprojekt wird eine kleine SQLite-Datenbank erstellt mit den notwendigen Informationen, um AtOS bedienen zu können.
