@@ -1,6 +1,6 @@
 ** Geocat **
 
-Noch keine Einträg in geocat.ch für Dienst und Datensatz.
+Noch keine Einträge in geocat.ch für Dienst und Datensatz.
 
 
 **GeoRSS: <georss:box> oder <georss:polygon>?**
